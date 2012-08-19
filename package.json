@@ -1,6 +1,6 @@
 {
   "name": "memo-is",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/d11wtq/memo-is",
   "description": "Memoization for Mocha/Jasmine specs (like RSpec's #let)",
   "author": "Chris Corbyn <chris@w3style.co.uk>",

@@ -1,0 +1,30 @@
+{
+  "name": "memo-is",
+  "version": "0.0.1",
+  "homepage": "https://github.com/d11wtq/memo-is",
+  "description": "Memoization for Mocha/Jasmine specs (like RSpec's #let)",
+  "author": "Chris Corbyn <chris@w3style.co.uk>",
+  "maintainers": [
+    "d11wtq <chris@w3style.co.uk>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/d11wtq/node-memo-is.git"
+  },
+  "files": [
+    "lib", "README.md", "LICENSE"
+  ],
+  "devDependencies": {
+    "mocha": ""
+  },
+  "scripts": {
+  },
+  "keywords": [
+    "spec",
+    "mocha",
+    "jasmine",
+    "memoize"
+  ],
+  "main": "./lib/memo-is",
+  "license": "MIT"
+}

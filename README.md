@@ -29,6 +29,9 @@ var memo   = require('memo-is')
 
 describe('Memoizer', function(){
   var example = memo().is(function() { return []; });
+  var value;
+
+  beforeEach(function() { value = example(); });
 
   it('returns the same value every time', function(){
     assert(example() === example());
@@ -39,6 +42,10 @@ describe('Memoizer', function(){
 
     it('returns the overridden value', function(){
       assert.equal(example()[0], 'bob');
+    });
+
+    it('is available in the before of an outer context', function(){
+      assert.equal(value[0], 'bob');
     });
 
     describe('and used in a sub context', function(){
@@ -66,6 +73,53 @@ describe('Memoizer', function(){
   });
 });
 ```
+
+## Caveats
+
+One thing you should be aware of is the fact that memo-is depends on the
+`before()` hook in order to prepare the memoized function. When working with
+the memoized function inside a `beforeEach()`, you won't have any unexpected
+issues. When working with it inside a `before()` hook of a context nested
+deeper than where the memoized function is defined, you won't have any issues
+neither. When working, however, with a `before()` hook in the same context as
+where you define the memoized function, you *must* define the memoizer first,
+so that it is available in your `before()` hook.
+
+This is fine:
+
+``` javascript
+describe('using inside a before()', function(){
+  var numPlusOne;
+  var example = memo().is(function(){ return 42; });
+
+  before(function() { numPlusOne = example() + 1; }
+
+  it('works when the hook is declared after the memoizer', function(){
+    assert.equal(numPlusOne, 43);
+  });
+});
+```
+
+This won't work:
+
+``` javascript
+describe('using inside a before()', function(){
+  var numPlusOne;
+
+  before(function() { numPlusOne = example() + 1; }
+
+  var example = memo().is(function(){ return 42; }); // too late!
+
+  it('explodes in an unexpected way', function(){
+    assert.equal(numPlusOne, 43);
+  });
+});
+```
+
+The same applies for overriding memoizer functions—do the override first.
+
+If anybody can think of a way to remove this limitation, please send a pull
+request :-)
 
 ## Copyright & Licensing
 

@@ -11,6 +11,9 @@ var memo   = require('../lib/memo-is')
 
 describe('Memoizer', function(){
   var example = memo().is(function() { return []; });
+  var value;
+
+  beforeEach(function() { value = example(); });
 
   it('returns the same value every time', function(){
     assert(example() === example());
@@ -21,6 +24,10 @@ describe('Memoizer', function(){
 
     it('returns the overridden value', function(){
       assert.equal(example()[0], 'bob');
+    });
+
+    it('is available in the before of an outer context', function(){
+      assert.equal(value[0], 'bob');
     });
 
     describe('and used in a sub context', function(){

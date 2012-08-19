@@ -119,7 +119,8 @@ describe('using inside a before()', function(){
 The same applies for overriding memoizer functions—do the override first.
 
 If anybody can think of a way to remove this limitation, please send a pull
-request :-)
+request :-) In a perfect world, it would hook into something that runs before
+the `before()` hook; it feels like I'd need to patch Mocha to achieve that.
 
 ## Copyright & Licensing
 

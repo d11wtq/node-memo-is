@@ -53,4 +53,13 @@ describe('Memoizer', function(){
       });
     });
   });
+
+  describe('can be used with values iso objects', function() {
+      example.is(['bob']);
+
+      it('returns the overridden value', function(){
+          assert.equal(example()[0], 'bob');
+      });
+
+  })
 });
